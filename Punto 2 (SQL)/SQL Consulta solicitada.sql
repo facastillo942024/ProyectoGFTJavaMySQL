@@ -15,6 +15,18 @@ WHERE NOT EXISTS (
     )
 );
 
+-- CONSULTA OPTIMIZADA SEGUN ENTREVISTA CON EL INGENIERO DIA 10 DE JULIO 10:30 AM =>
+SELECT DISTINCT c.nombre
+FROM cliente c 
+JOIN inscripcion i ON c.idCliente = i.idCliente 
+JOIN disponibilidad d ON i.idProducto = d.idProducto
+LEFT JOIN visitan v ON d.idSucursal = v.idSucursal
+AND v.idCliente = c.idCliente
+GROUP BY c.idCliente, c.nombre, i.idProducto
+HAVING COUNT(d.idSucursal) = COUNT(v.idSucursal);
+--------------------------------------------------------------------------------------
+ 
+
 
 => ¿Qué hace esta consulta?
 
